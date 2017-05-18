@@ -1,21 +1,58 @@
-html, body {
-    margin: 0;
-    font-family: arial, "Microsoft YaHei";
-    background-color: #272822;
-    color: #FEFEFE;
-}
-#fileWrapper{
-	transition:all 0.5s ease;
-}
-#fileWrapper:hover{
-	opacity: 1!important;
+@charset 'utf-8';
+body,
+dd,
+dl,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ol,
+p,
+ul {
+    margin: 0
 }
 
-#visualizer_wrapper{
-	text-align: center;
+body {
+    font-family: tahoma, arial, 'Hiragino Sans GB', 'Mircosoft Yahei', sans-serif
 }
-footer{
-	position: fixed;
-	bottom: 2px;
-	color:#aaa;
+
+ol,
+ul {
+    padding: 0
+}
+
+li {
+    list-style: none
+}
+
+a {
+    background-color: transparent;
+    text-decoration: none
+}
+
+a:active,
+a:hover,
+button,
+input,
+textarea {
+    outline: 0
+}
+
+img {
+    border-style: none
+}
+
+.g-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
 }

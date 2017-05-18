@@ -19,20 +19,25 @@ function Source(obj) {
  *
  * @param: {Number} second 播放位置
  */
-Source.prototype.start = function(second) {
-	this.bufferSource = audioContext.createBufferSource();
-	this.gainNode = audioContext.createGain();
-	this.filter = audioContext.createBiquadFilter();
-	this.filter.type = 'lowpass';
-	this.filter.frequency.value = 5000;
-	this.bufferSource.buffer = buffers[this.config.soundName];
-	this.bufferSource.loop = this.config.loop;
-	this.bufferSource.connect(this.gainNode);
-	this.gainNode.connect(this.filter);
-	this.filter.connect(audioContext.destination);
+Source.prototype.start = function(second = 0) {
+	if (!this.bufferSource) {
+		this.bufferSource = audioContext.createBufferSource();
+		this.gainNode = audioContext.createGain();
+		this.filter = audioContext.createBiquadFilter();
+		this.filter.type = 'lowpass';
+		this.filter.frequency.value = 5000;
+		this.bufferSource.buffer = buffers[this.config.soundName];
+		this.bufferSource.loop = this.config.loop;
+		this.bufferSource.connect(this.gainNode);
+		this.gainNode.connect(this.filter);
+		this.filter.connect(audioContext.destination);
+		this.bufferSource.onended = () => {
+			this.bufferSource = null;
+		}
 
-	second = second > this.bufferSource.buffer.duration ? 0 : second;
-	this.bufferSource.start(0,second);
+		second = second > this.bufferSource.buffer.duration ? 0 : second;
+		this.bufferSource.start(0, second);
+	}
 }
 
 /**
@@ -40,7 +45,7 @@ Source.prototype.start = function(second) {
  *
  */
 Source.prototype.stop = function() {
-	this.bufferSource.stop();
+	this.bufferSource && this.bufferSource.stop();
 }
 
 /**
@@ -49,7 +54,7 @@ Source.prototype.stop = function() {
  * @param: {Number} value 音量
  */
 Source.prototype.controlVolume = function(value) {
-	this.gainNode.gain.value = value;
+	this.bufferSource && (this.gainNode.gain.value = value);
 }
 
 /**
@@ -57,18 +62,17 @@ Source.prototype.controlVolume = function(value) {
  *
  * @param: {Number} rate 原速度的倍数
  */
-Source.prototype.controlRate = function(rate){
-	this.bufferSource.playbackRate.value = rate;
+Source.prototype.controlRate = function(rate) {
+	this.bufferSource && (this.bufferSource.playbackRate.value = rate);
 }
 
 /**
  * 控制播放频率
  *
  * @param: {Number} value 频率
- * @return: {type} description
  */
-Source.prototype.controlFrequency = function(value){
-	this.filter.frequency.value = value;
+Source.prototype.controlFrequency = function(value) {
+	this.bufferSource && (this.filter.frequency.value = value);
 }
 
 export default Source;
