@@ -7,10 +7,11 @@ import Disk from './js/createDisk.js';
 
 
 let disk = new Disk({
-		selector: '#test',
-		soundName: 'drunk'
-	})
-	// 创建promise
+	selector: '#test',
+	soundName: 'drunk',
+	loop: false
+});
+// 创建promise
 let promise = () => {
 	return Promise.resolve();
 }

@@ -64,3 +64,15 @@ img {
 	background:transparent url(../image/disk.png) left top no-repeat;
 	transform-origin:center center;
 }
+
+@keyframes rotate{
+	0{
+		transform:rotate(0);
+	}
+	50%{
+		transform:rotate(180deg);
+	}
+	100%{
+		transform:rotate(360deg);
+	}
+}

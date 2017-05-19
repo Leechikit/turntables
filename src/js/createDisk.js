@@ -12,9 +12,6 @@ let diskCount = 0;
 function Disk(obj) {
 	this.selector = obj.selector;
 	this.isStrat = false;
-	this.interv = null;
-	this.time = 0;
-	this.duration = 0;
 	this.sound = new Source({
 		soundName: obj.soundName,
 		loop: obj.loop || true
@@ -34,6 +31,7 @@ Disk.prototype.init = function() {
 	let disk = document.createElement('div');
 	disk.className = 'disk-' + diskCount;
 	container.append(disk);
+	this.diskEl = document.querySelector('.' + disk.className);
 	// 创建播放停止按钮
 	let play = document.createElement('p');
 	play.innerHTML = `<input type="button" value="播放" id="play-${diskCount}">`;
@@ -54,6 +52,8 @@ Disk.prototype.init = function() {
  */
 Disk.prototype.bindEvent = function() {
 	this.clickPlayHandle();
+	this.controlVolumn();
+	this.controlFrequency();
 }
 
 /**
@@ -65,25 +65,63 @@ Disk.prototype.clickPlayHandle = function() {
 		if (this.isStart) {
 			this.sound.stop();
 			event.target.value = '播放';
-			// progress.value = 0;
-			// clearInterval(interv);
+			this.resetProgress();
+
 		} else {
 			this.sound.start();
 			event.target.value = '停止';
-			this.duration = this.sound.bufferSource.buffer.duration;
-			// let progress = document.querySelector('#progress');
-			// interv = setInterval(function() {
-			// 	time++;
-			// 	let round = +Math.floor(time / duration).toFixed(0);
-			// 	progress.value = (time - round * duration) / duration * 100;
-			// }, 1000);
+
+			let duration = this.sound.bufferSource.buffer.duration;
+			this.startProgress(duration);
 		}
 		this.isStart = !this.isStart;
 	});
 }
 
-Disk.prototype.progress = function() {
+/**
+ * 音频播放进度
+ *
+ */
+Disk.prototype.startProgress = function(duration) {
+	this.diskEl.style.cssText = "animation:rotate " + duration + "s linear infinite;";
+}
 
+/**
+ * 重置播放进度
+ *
+ */
+Disk.prototype.resetProgress = function() {
+	this.diskEl.style.cssText = "animation:none;";
+}
+
+/**
+ * 控制音量事件
+ *
+ */
+Disk.prototype.controlVolumn = function() {
+	document.querySelector('#volumn-' + diskCount).addEventListener('change', (event) => {
+		let value = event.target.value / 50;
+		this.sound.controlVolume(value);
+	});
+}
+
+/**
+ * 重置音量
+ *
+ */
+Disk.prototype.resetVolumn = function(){
+	
+}
+
+/**
+ * 控制频率事件
+ *
+ */
+Disk.prototype.controlFrequency = function() {
+	document.querySelector('#frequency-' + diskCount).addEventListener('change', (event)=> {
+		let value = event.target.value;
+		this.sound.controlFrequency(value);
+	});
 }
 
 export default Disk;
