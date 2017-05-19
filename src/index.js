@@ -3,8 +3,14 @@ import './sass/index.scss';
 import audioContext from './js/audioContext.js';
 import Source from './js/createSource.js';
 import Oscillator from './js/createOscillator.js';
+import Disk from './js/createDisk.js';
 
-// 创建promise
+
+let disk = new Disk({
+		selector: '#test',
+		soundName: 'drunk'
+	})
+	// 创建promise
 let promise = () => {
 	return Promise.resolve();
 }
@@ -40,38 +46,49 @@ let oscillator = new Oscillator({
 
 let sounds = promise();
 
-let isStart = false;
-let interv = null;
+// let isStart = false;
+// let interv = null;
+// let time = 0;
+// let duration = 0;
 
-document.querySelector('#play').addEventListener('click', function(event) {
-	if (isStart) {
-		drunk.stop();
-		event.target.value = '播放';
-		clearInterval(interv);
-	} else {
-		drunk.start(0);
-		event.target.value = '暂停';
-		let duration = drunk.bufferSource.buffer.duration;
+// document.querySelector('#play').addEventListener('click', function(event) {
+// 	if (isStart) {
+// 		drunk.stop();
+// 		event.target.value = '播放';
+// 		progress.value = 0;
+// 		clearInterval(interv);
+// 	} else {
+// 		drunk.start(0);
+// 		event.target.value = '停止';
+// 		duration = drunk.bufferSource.buffer.duration;
+// 		let progress = document.querySelector('#progress');
+// 		interv = setInterval(function() {
+// 			time++;
+// 			let round = +Math.floor(time / duration).toFixed(0);
+// 			progress.value = (time - round * duration) / duration * 100;
+// 		}, 1000);
+// 	}
+// 	isStart = !isStart;
+// });
 
-		let progress = document.querySelector('#progress');
-		interv = setInterval(function() {
-			console.log(audioContext.currentTime,duration,+Math.floor(audioContext.currentTime / duration).toFixed(0) + 1);
-			let round = +Math.floor(audioContext.currentTime / duration).toFixed(0) + 1;
-			progress.value = audioContext.currentTime / (round * duration) * 100;
-		}, 1000);
-	}
-	isStart = !isStart;
-});
+// document.querySelector('#volumn').addEventListener('change', function(event) {
+// 	let value = this.value / 50;
+// 	drunk.controlVolume(value);
+// });
 
-document.querySelector('#volumn').addEventListener('change', function(event) {
-	let value = this.value / 50;
-	drunk.controlVolume(value);
-});
+// document.querySelector('#frequency').addEventListener('change', function(event) {
+// 	let value = this.value;
+// 	drunk.controlFrequency(value);
+// });
 
-document.querySelector('#frequency').addEventListener('change', function(event) {
-	let value = this.value;
-	drunk.controlFrequency(value);
-});
+// document.querySelector('#progress').addEventListener('change',function(event){
+// 	let value = this.value;
+// 	time = Math.floor(value / 100 * duration);
+// 	drunk.stop();
+// 	setTimeout(()=>{
+// 		drunk.start(time);
+// 	},100);
+// });
 
 
 // sounds.then(() => {

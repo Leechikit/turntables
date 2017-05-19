@@ -55,4 +55,12 @@ img {
     justify-content:center;
     align-items:center;
     flex-direction:column;
+    background-color: #dcc;
+}
+
+[class|='disk']{
+	width:414px;
+	height: 414px;
+	background:transparent url(../image/disk.png) left top no-repeat;
+	transform-origin:center center;
 }
