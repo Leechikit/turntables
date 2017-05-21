@@ -66,6 +66,8 @@ Disk.prototype.clickPlayHandle = function() {
 			this.sound.stop();
 			event.target.value = '播放';
 			this.resetProgress();
+			this.resetVolumn();
+			this.resetFrequency();
 
 		} else {
 			this.sound.start();
@@ -110,7 +112,7 @@ Disk.prototype.controlVolumn = function() {
  *
  */
 Disk.prototype.resetVolumn = function(){
-	
+	document.querySelector('#volumn-' + diskCount).value = 50;
 }
 
 /**
@@ -122,6 +124,14 @@ Disk.prototype.controlFrequency = function() {
 		let value = event.target.value;
 		this.sound.controlFrequency(value);
 	});
+}
+
+/**
+ * 重置频率
+ *
+ */
+Disk.prototype.resetFrequency = function(){
+	document.querySelector('#frequency-' + diskCount).value = 5000;
 }
 
 export default Disk;
