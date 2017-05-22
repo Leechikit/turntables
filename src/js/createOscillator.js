@@ -19,9 +19,12 @@ function Oscillator(obj) {
 Oscillator.prototype.start = function(second = 0) {
 	if (!this.oscillator) {
 		this.oscillator = audioContext.createOscillator();
+		this.gainNode = audioContext.createGain();
 		this.oscillator.type = this.config.type;
 		this.oscillator.frequency.value = this.config.frequency;
-		this.oscillator.connect(audioContext.destination);
+		this.oscillator.connect(this.gainNode);
+		this.gainNode.connect(audioContext.destination);
+		this.gainNode.gain.value = 0.1;
 		this.oscillator.onended = () => {
 			this.oscillator = null;
 		}
