@@ -15,6 +15,10 @@ function Disk(obj) {
 	this.isStart = false;
 	this.isMousedown = false;
 	this.isRotating = false;
+	this.mouseDownDegree = 0;
+	this.mouseDownRotate = 0;
+	this.volumn = 1;
+	this.frequency = 5000;
 	this.sound = new Source({
 		soundName: obj.soundName,
 		loop: obj.loop || true
@@ -68,6 +72,7 @@ Disk.prototype.bindEvent = function() {
 	this.mousemoveDisk();
 	this.mousedownDisk();
 	this.mouseupDisk();
+	this.mouseleaveDisk();
 }
 
 /**
@@ -144,8 +149,8 @@ Disk.prototype.rotateTo = function(degree) {
  */
 Disk.prototype.controlVolumn = function() {
 	document.querySelector('#volumn-' + diskCount).addEventListener('change', (event) => {
-		let value = event.target.value / 50;
-		this.sound.controlVolume(value);
+		this.volumn = event.target.value / 50;
+		this.sound.controlVolume(this.volumn);
 	});
 }
 
@@ -163,8 +168,8 @@ Disk.prototype.resetVolumn = function() {
  */
 Disk.prototype.controlFrequency = function() {
 	document.querySelector('#frequency-' + diskCount).addEventListener('change', (event) => {
-		let value = event.target.value;
-		this.sound.controlFrequency(value);
+		this.frequency = event.target.value;
+		this.sound.controlFrequency(this.frequency);
 	});
 }
 
@@ -185,24 +190,8 @@ Disk.prototype.mousemoveDisk = function() {
 		if (this.isStart && this.isMousedown) {
 			let pageX = event.pageX;
 			let pageY = event.pageY;
-			let x = Math.abs(this.originX - pageX);
-			let y = Math.abs(this.originY - pageY);
-			let z = Math.sqrt(x * x + y * y);
-			let rotate = Math.round(Math.asin(y / z) / Math.PI * 180);
-			// 第一象限
-			if (pageX >= this.originX && pageY <= this.originY) {
-				rotate = 90 - rotate;
-				// 第四象限
-			} else if (pageX >= this.originX && pageY >= this.originY) {
-				rotate = 90 + rotate;
-				// 第三象限
-			} else if (pageX <= this.originX && pageY >= this.originY) {
-				rotate = 270 - rotate;
-				// 第二象限
-			} else if (pageX <= this.originX && pageY <= this.originY) {
-				rotate = 270 + rotate;
-			}
-			this.rotateTo(rotate);
+			let degree = utils.countDegree(pageX, pageY, this.originX, this.originY);
+			this.rotateTo(degree - this.mouseDownDegree + this.mouseDownRotate);
 		}
 	});
 }
@@ -214,9 +203,13 @@ Disk.prototype.mousemoveDisk = function() {
 Disk.prototype.mousedownDisk = function() {
 	this.diskEl.addEventListener('mousedown', (event) => {
 		if (this.isStart) {
-			this.isMousedown = true;
+			let pageX = event.pageX;
+			let pageY = event.pageY;
+			this.mouseDownDegree = utils.countDegree(pageX, pageY, this.originX, this.originY);
+			this.mouseDownRotate = utils.getRotateDegree(this.diskEl);
 			this.sound.stop();
 			this.oscillator.start();
+			this.isMousedown = true;
 			this.isRotating = !this.isRotating;
 		}
 	});
@@ -228,11 +221,34 @@ Disk.prototype.mousedownDisk = function() {
  */
 Disk.prototype.mouseupDisk = function() {
 	this.diskEl.addEventListener('mouseup', (event) => {
-		if (this.isStart) {
+		if (this.isStart && this.isMousedown) {
 			this.isMousedown = false;
 			let degree = utils.getRotateDegree(this.diskEl);
 			this.isRotating = !this.isRotating;
 			this.sound.start(degree / 360 * this.duration);
+			this.sound.controlVolume(this.volumn);
+			this.sound.controlFrequency(this.frequency);
+			this.oscillator.stop();
+			window.requestAnimationFrame(() => {
+				this.startProgress();
+			});
+		}
+	});
+}
+
+/**
+ * 鼠标离开
+ *
+ */
+Disk.prototype.mouseleaveDisk = function() {
+	this.diskEl.addEventListener('mouseleave', (event) => {
+		if (this.isStart && this.isMousedown) {
+			this.isMousedown = false;
+			let degree = utils.getRotateDegree(this.diskEl);
+			this.isRotating = !this.isRotating;
+			this.sound.start(degree / 360 * this.duration);
+			this.sound.controlVolume(this.volumn);
+			this.sound.controlFrequency(this.frequency);
 			this.oscillator.stop();
 			window.requestAnimationFrame(() => {
 				this.startProgress();
@@ -250,7 +266,28 @@ let utils = {
 	getRotateDegree(elem) {
 		const reg = /transform:\s*rotate\((\d+\.?\d*)deg\)/;
 		let style = elem.style.cssText;
-		return style.match(reg) && style.match(reg)[1] || 0;
+		return style.match(reg) && +style.match(reg)[1] || 0;
+	},
+	// 已知两点计算度数
+	countDegree(x1, y1, x2, y2) {
+		let x = Math.abs(x1 - x2);
+		let y = Math.abs(y1 - y2);
+		let z = Math.sqrt(x * x + y * y);
+		let degree = Math.round(Math.asin(y / z) / Math.PI * 180);
+		// 第一象限
+		if (x2 >= x1 && y2 <= y1) {
+			degree = 90 - degree;
+			// 第四象限
+		} else if (x2 >= x1 && y2 >= y1) {
+			degree = 90 + degree;
+			// 第三象限
+		} else if (x2 <= x1 && y2 >= y1) {
+			degree = 270 - degree;
+			// 第二象限
+		} else if (x2 <= x1 && y2 <= y1) {
+			degree = 270 + degree;
+		}
+		return degree;
 	}
 }
 
