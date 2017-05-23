@@ -8,6 +8,15 @@ import audioContext from './audioContext.js';
 import Source from './createSource.js';
 import Oscillator from './createOscillator.js';
 
+// 音量最小
+const VOLUMNMIN = 0;
+// 音量最大
+const VOLUMNMAX = 2;
+// 频率最小
+const FREQUENCYMIN = 0;
+// 频率最大
+const FREQUENCYMAX = 10000;
+
 let diskCount = 0;
 
 function Disk(obj) {
@@ -53,11 +62,11 @@ Disk.prototype.init = function() {
 	container.append(play);
 	// 创建音量控制条
 	let volumn = document.createElement('p');
-	volumn.innerHTML = `音量：<input type="range" min="0" id="volumn-${diskCount}">`;
+	volumn.innerHTML = `音量：<input type="range" min="${VOLUMNMIN}" max="${VOLUMNMAX}" id="volumn-${diskCount}">`;
 	container.append(volumn);
 	// 创建音频控制条
 	let frequency = document.createElement('p');
-	frequency.innerHTML = `音频：<input type="range" min="0" max="10000" id="frequency-${diskCount}">`;
+	frequency.innerHTML = `音频：<input type="range" min="${FREQUENCYMIN}" max="${FREQUENCYMAX}" id="frequency-${diskCount}">`;
 	container.append(frequency);
 }
 
