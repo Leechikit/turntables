@@ -52,20 +52,69 @@ img {
     bottom: 0;
     margin: auto;
     display: flex;
-    justify-content:center;
+    // justify-content:center;
     align-items:center;
     flex-direction:column;
-    background-color: #dcc;
-
+    background:transparent url(http://p3.music.126.net/aPCw1HlN5j_msuE0qaSirg==/17982512672538089.jpg) left top no-repeat;
+    background-size: cover;
 }
-
-[class|='disk']{
-	width:414px;
-	height: 414px;
-	background:transparent url(../image/disk.png) left top no-repeat;
+#song-wrap{
+    position: relative;
+    padding-top: 95px;
+}
+.song-disk{
+	width:444px;
+	height: 444px;
 	transform-origin:center center;
     will-change: transform;
     // opacity: 0;
+    &::before{
+        content: " ";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 2;
+        background: url(../image/disk.png) no-repeat;
+        background-size: contain;
+    }
+    &::after{
+        content: " ";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 3;
+        background: url(../image/light.png) no-repeat;
+        background-size: contain;
+    }
+    .song-cover{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width:280px;
+        height: 280px;
+        margin-top: -140px;
+        margin-left: -140px;
+        background:transparent url(../image/default.png) left top no-repeat;
+        background-size: contain;
+        img{
+            width: 100%;
+            vertical-align: middle;
+        }
+    }
+}
+.song-needle{
+    position: absolute;
+    top:0;
+    left:48%;
+    z-index: 10;
+    width: 144px;
+    height: 206px;
+    background:transparent url(../image/needle.png) left top no-repeat;
+    background-size: contain;
 }
 
 @keyframes diskRotate{

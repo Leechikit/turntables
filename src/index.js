@@ -7,7 +7,7 @@ import Disk from './js/createDisk.js';
 
 
 let disk = new Disk({
-	selector: '#test',
+	selector: '#song-wrap',
 	soundName: 'drunk',
 	loop: false
 });

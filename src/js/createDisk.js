@@ -49,13 +49,24 @@ Disk.prototype.init = function() {
 	let container = document.querySelector(this.selector);
 	// 创建磁碟
 	let disk = document.createElement('div');
-	disk.className = 'disk-' + diskCount;
+	disk.className = 'song-disk disk-' + diskCount;
 	disk.style['transition'] = `transform 16.7ms linear`;
 	container.append(disk);
 	let offset = disk.getBoundingClientRect();
 	this.originX = offset.left + disk.offsetWidth / 2;
 	this.originY = offset.top + disk.offsetHeight / 2;
-	this.diskEl = document.querySelector('.' + disk.className);
+	this.diskEl = document.querySelector('.song-disk.disk-' + diskCount);
+	// 创建针
+	let needle = document.createElement('div');
+	needle.className = 'song-needle';
+	container.append(needle);
+	// 创建封面
+	let cover = document.createElement('div');
+	cover.className = 'song-cover';
+	let coverImg = document.createElement('img');
+	coverImg.src="http://p1.music.126.net/5KE-Os38if8v9_d_qSf90w==/19183179369981589.webp?imageView&thumbnail=720x0&quality=75&tostatic=0&type=webp";
+	cover.append(coverImg);
+	disk.append(cover);
 	// 创建播放停止按钮
 	let play = document.createElement('p');
 	play.innerHTML = `<input type="button" value="播放" id="play-${diskCount}">`;
