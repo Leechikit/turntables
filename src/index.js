@@ -4,6 +4,7 @@ import audioContext from './js/audioContext.js';
 import Source from './js/createSource.js';
 import Oscillator from './js/createOscillator.js';
 import Disk from './js/createDisk.js';
+import songList from './js/createSongList.js';
 
 
 let disk = new Disk({
@@ -11,41 +12,46 @@ let disk = new Disk({
 	soundName: 'drunk',
 	loop: false
 });
-// 创建promise
-let promise = () => {
-	return Promise.resolve();
-}
 
-// 延迟
-let sleep = (delay) => {
-	return new Promise((resolve) => {
-		setTimeout(function() {
-			resolve();
-		}, +delay);
-	})
-}
+songList({
+	selector: '#JsongList'
+})
 
-let drunk = new Source({
-	soundName: 'drunk',
-	loop: true
-});
+// // 创建promise
+// let promise = () => {
+// 	return Promise.resolve();
+// }
 
-let kick = new Source({
-	soundName: 'kick',
-	loop: true
-});
+// // 延迟
+// let sleep = (delay) => {
+// 	return new Promise((resolve) => {
+// 		setTimeout(function() {
+// 			resolve();
+// 		}, +delay);
+// 	})
+// }
 
-let hihat = new Source({
-	soundName: 'hihat',
-	loop: true
-});
+// let drunk = new Source({
+// 	soundName: 'drunk',
+// 	loop: true
+// });
 
-let oscillator = new Oscillator({
-	type: 'square',
-	frequency: 3000
-});
+// let kick = new Source({
+// 	soundName: 'kick',
+// 	loop: true
+// });
 
-let sounds = promise();
+// let hihat = new Source({
+// 	soundName: 'hihat',
+// 	loop: true
+// });
+
+// let oscillator = new Oscillator({
+// 	type: 'square',
+// 	frequency: 3000
+// });
+
+// let sounds = promise();
 
 // let isStart = false;
 // let interv = null;

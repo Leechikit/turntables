@@ -67,6 +67,7 @@ img {
 	height: 444px;
 	transform-origin:center center;
     will-change: transform;
+    cursor: pointer;
     // opacity: 0;
     &::before{
         content: " ";
@@ -127,4 +128,24 @@ img {
 	100%{
 		transform:rotate(360deg);
 	}
+}
+
+.song-list{
+    width:200px;
+    border-radius: 8px;
+    overflow: hidden;
+    li{
+        width: 100%;
+        font-size: 14px;
+        line-height: 24px;
+        color:#fff;
+        text-align: center;
+        cursor: -webkit-grab;
+        &:nth-child(even){
+            background-color: rgba(#30bb30, 0.7);
+        }
+        &:nth-child(odd){
+            background-color: rgba(#5656ea, 0.7);
+        }
+    }
 }
