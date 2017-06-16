@@ -11,7 +11,7 @@ import Oscillator from './createOscillator.js';
 // 音量最小
 const VOLUMNMIN = 0;
 // 音量最大
-const VOLUMNMAX = 2;
+const VOLUMNMAX = 100;
 // 频率最小
 const FREQUENCYMIN = 0;
 // 频率最大
@@ -47,39 +47,38 @@ function Disk(obj) {
  *
  */
 Disk.prototype.init = function() {
-	let container = document.querySelector(this.selector);
+	let containerEl = document.querySelector(this.selector);
 	// 创建磁碟
-	let disk = document.createElement('div');
-	disk.className = 'song-disk disk-' + diskCount;
-	disk.style['transition'] = `transform 16.7ms linear`;
-	container.append(disk);
-	let offset = disk.getBoundingClientRect();
-	this.originX = offset.left + disk.offsetWidth / 2;
-	this.originY = offset.top + disk.offsetHeight / 2;
+	let diskEl = document.createElement('div');
+	diskEl.className = 'song-disk disk-' + diskCount;
+	containerEl.append(diskEl);
+	let offset = diskEl.getBoundingClientRect();
+	this.originX = offset.left + diskEl.offsetWidth / 2;
+	this.originY = offset.top + diskEl.offsetHeight / 2;
 	this.diskEl = document.querySelector('.song-disk.disk-' + diskCount);
 	// 创建针
-	let needle = document.createElement('div');
-	needle.className = 'song-needle';
-	container.append(needle);
+	let needleEl = document.createElement('div');
+	needleEl.className = 'song-needle';
+	containerEl.append(needleEl);
 	// 创建封面
-	let cover = document.createElement('div');
-	cover.className = 'song-cover';
+	let coverEl = document.createElement('div');
+	coverEl.className = 'song-cover';
 	let coverImg = document.createElement('img');
 	coverImg.src = "http://p1.music.126.net/5KE-Os38if8v9_d_qSf90w==/19183179369981589.webp?imageView&thumbnail=720x0&quality=75&tostatic=0&type=webp";
-	cover.append(coverImg);
-	disk.append(cover);
+	coverEl.append(coverImg);
+	diskEl.append(coverEl);
 	// 创建播放停止按钮
-	let play = document.createElement('p');
-	play.innerHTML = `<input type="button" value="播放" id="play-${diskCount}">`;
-	container.append(play);
+	let playEl = document.createElement('p');
+	playEl.innerHTML = `<input type="button" value="播放" id="play-${diskCount}">`;
+	containerEl.append(playEl);
 	// 创建音量控制条
-	let volumn = document.createElement('p');
-	volumn.innerHTML = `音量：<input type="range" min="${VOLUMNMIN}" max="${VOLUMNMAX}" id="volumn-${diskCount}">`;
-	container.append(volumn);
+	let volumnEl = document.createElement('p');
+	volumnEl.innerHTML = `音量：<input type="range" min="${VOLUMNMIN}" max="${VOLUMNMAX}" id="volumn-${diskCount}">`;
+	containerEl.append(volumnEl);
 	// 创建音频控制条
-	let frequency = document.createElement('p');
-	frequency.innerHTML = `音频：<input type="range" min="${FREQUENCYMIN}" max="${FREQUENCYMAX}" id="frequency-${diskCount}">`;
-	container.append(frequency);
+	let frequencyEl = document.createElement('p');
+	frequencyEl.innerHTML = `音频：<input type="range" min="${FREQUENCYMIN}" max="${FREQUENCYMAX}" id="frequency-${diskCount}">`;
+	containerEl.append(frequencyEl);
 }
 
 /**
@@ -88,14 +87,14 @@ Disk.prototype.init = function() {
  */
 Disk.prototype.bindEvent = function() {
 	this.clickPlayHandle();
-	this.controlVolumn();
-	this.controlFrequency();
-	this.mousemoveDisk();
-	this.mousedownDisk();
-	this.mouseupDisk();
-	this.mouseleaveDisk();
-	this.dragoverEvent();
-	this.dropEvent();
+	this.controlVolumnHandle();
+	this.controlFrequencyHandle();
+	this.mousemoveDiskHandle();
+	this.mousedownDiskHandle();
+	this.mouseupDiskHandle();
+	this.mouseleaveDiskHandle();
+	this.dragoverHandle();
+	this.dropHandle();
 }
 
 /**
@@ -116,7 +115,7 @@ Disk.prototype.clickPlayHandle = function() {
 			event.target.value = '停止';
 
 			this.duration = this.sound.bufferSource.buffer.duration;
-			window.requestAnimationFrame(() => {
+			this.duration > 1 && window.requestAnimationFrame(() => {
 				this.startProgress();
 			});
 		}
@@ -126,11 +125,42 @@ Disk.prototype.clickPlayHandle = function() {
 }
 
 /**
+ * 播放音乐
+ *
+ */
+Disk.prototype.startSound = function() {
+	let playEl = document.querySelector('#play-' + diskCount);
+	playEl.value = '停止';
+	this.sound.start();
+	this.duration = this.sound.bufferSource.buffer.duration;
+	this.duration > 1 && window.requestAnimationFrame(() => {
+		this.startProgress();
+	});
+	this.isStart = true;
+	this.isRotating = true;
+}
+
+/**
+ * 停止音乐
+ *
+ */
+Disk.prototype.stopSound = function() {
+	let playEl = document.querySelector('#play-' + diskCount);
+	playEl.value = '播放';
+	this.sound.stop();
+	this.resetProgress();
+	this.resetVolumn();
+	this.resetFrequency();
+	this.isStart = false;
+	this.isRotating = false;
+}
+
+/**
  * 音频播放进度
  *
  */
 Disk.prototype.startProgress = function(duration) {
-	if (this.isStart && this.isRotating) {
+	if (this.isStart && this.isRotating && this.duration > 1) {
 		let degree = 16.7 / 1000 / this.duration * 360;
 		this.rotate(degree);
 		window.requestAnimationFrame(() => {
@@ -170,7 +200,7 @@ Disk.prototype.rotateTo = function(degree) {
  * 控制音量事件
  *
  */
-Disk.prototype.controlVolumn = function() {
+Disk.prototype.controlVolumnHandle = function() {
 	document.querySelector('#volumn-' + diskCount).addEventListener('change', (event) => {
 		this.volumn = event.target.value / 50;
 		this.sound.controlVolume(this.volumn);
@@ -182,14 +212,14 @@ Disk.prototype.controlVolumn = function() {
  *
  */
 Disk.prototype.resetVolumn = function() {
-	document.querySelector('#volumn-' + diskCount).value = 50;
+	document.querySelector('#volumn-' + diskCount).value = (VOLUMNMAX - VOLUMNMIN) / 2;
 }
 
 /**
  * 控制频率事件
  *
  */
-Disk.prototype.controlFrequency = function() {
+Disk.prototype.controlFrequencyHandle = function() {
 	document.querySelector('#frequency-' + diskCount).addEventListener('change', (event) => {
 		this.frequency = event.target.value;
 		this.sound.controlFrequency(this.frequency);
@@ -208,7 +238,7 @@ Disk.prototype.resetFrequency = function() {
  * 滑动磁碟
  *
  */
-Disk.prototype.mousemoveDisk = function() {
+Disk.prototype.mousemoveDiskHandle = function() {
 	this.diskEl.addEventListener('mousemove', (event) => {
 		if (this.isStart && this.isMousedown) {
 			let pageX = event.pageX;
@@ -223,9 +253,9 @@ Disk.prototype.mousemoveDisk = function() {
  * 鼠标点击
  *
  */
-Disk.prototype.mousedownDisk = function() {
+Disk.prototype.mousedownDiskHandle = function() {
 	this.diskEl.addEventListener('mousedown', (event) => {
-		if (this.isStart) {
+		if (this.isStart && this.duration > 1) {
 			let pageX = event.pageX;
 			let pageY = event.pageY;
 			this.mouseDownDegree = utils.countDegree(pageX, pageY, this.originX, this.originY);
@@ -242,7 +272,7 @@ Disk.prototype.mousedownDisk = function() {
  * 鼠标松开
  *
  */
-Disk.prototype.mouseupDisk = function() {
+Disk.prototype.mouseupDiskHandle = function() {
 	this.diskEl.addEventListener('mouseup', (event) => {
 		if (this.isStart && this.isMousedown) {
 			this.isMousedown = false;
@@ -263,7 +293,7 @@ Disk.prototype.mouseupDisk = function() {
  * 鼠标离开
  *
  */
-Disk.prototype.mouseleaveDisk = function() {
+Disk.prototype.mouseleaveDiskHandle = function() {
 	this.diskEl.addEventListener('mouseleave', (event) => {
 		if (this.isStart && this.isMousedown) {
 			this.isMousedown = false;
@@ -284,7 +314,7 @@ Disk.prototype.mouseleaveDisk = function() {
  * dragover
  *
  */
-Disk.prototype.dragoverEvent = function() {
+Disk.prototype.dragoverHandle = function() {
 	this.diskEl.addEventListener("dragover", (event) => {
 		event.preventDefault();
 	});
@@ -294,18 +324,18 @@ Disk.prototype.dragoverEvent = function() {
  * drop
  *
  */
-Disk.prototype.dropEvent = function() {
+Disk.prototype.dropHandle = function() {
 	this.diskEl.addEventListener("drop", (event) => {
 		let dataList = event.dataTransfer.items;
 		for (let i = 0, len = dataList.length; i < len; i++) {
 			if (dataList[i].kind == "string" && dataList[i].type.match("^text/plain")) {
 				dataList[i].getAsString((name) => {
-					this.sound.stop();
+					this.stopSound();
 					this.sound = new Source({
 						soundName: name,
 						loop: this.loop || true
 					});
-					this.sound.start();
+					this.startSound();
 				});
 			}
 		}

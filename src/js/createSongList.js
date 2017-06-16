@@ -34,15 +34,15 @@ function createSongList(obj) {
  *
  */
 function eventBind() {
-	dragstartEvent();
-	dragendEvent();
+	dragstartHandle();
+	dragendHandle();
 }
 
 /**
  * dragstart
  *
  */
-function dragstartEvent() {
+function dragstartHandle() {
 	songListEl.addEventListener('dragstart', (event) => {
 		/*setDragImage start*/
 		let img = document.createElement('img');
@@ -60,7 +60,7 @@ function dragstartEvent() {
  * dragend
  *
  */
-function dragendEvent() {
+function dragendHandle() {
 	songListEl.addEventListener("dragend", (event) => {
 		let dataList = event.dataTransfer.items;
 		dataList.clear();
