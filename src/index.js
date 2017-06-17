@@ -7,8 +7,14 @@ import Disk from './js/createDisk.js';
 import songList from './js/createSongList.js';
 
 
-let disk = new Disk({
-	selector: '#song-wrap',
+let disk1 = new Disk({
+	selector: '#song-wrap-1',
+	soundName: 'drunk',
+	loop: false
+});
+
+let disk2 = new Disk({
+	selector: '#song-wrap-2',
 	soundName: 'drunk',
 	loop: false
 });

@@ -52,15 +52,22 @@ img {
     bottom: 0;
     margin: auto;
     display: flex;
-    // justify-content:center;
+    justify-content:center;
     align-items:center;
     flex-direction:column;
     background:transparent url(http://p3.music.126.net/aPCw1HlN5j_msuE0qaSirg==/17982512672538089.jpg) left top no-repeat;
     background-size: cover;
 }
-#song-wrap{
-    position: relative;
-    padding-top: 95px;
+.disk-box{
+    display: flex;
+    flex-wrap:wrap;
+    justify-content:space-around;
+    width: 1000px;
+    background-color: #232121;
+    border-radius: 20px;
+    &>div{
+        
+    }
 }
 .song-disk{
 	width:444px;
@@ -134,6 +141,7 @@ img {
     width:200px;
     border-radius: 8px;
     overflow: hidden;
+    flex-shrink:0;
     li{
         width: 100%;
         font-size: 14px;

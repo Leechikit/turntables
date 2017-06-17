@@ -37,7 +37,7 @@ function Disk(obj) {
 		type: 'square',
 		frequency: 1000
 	})
-	diskCount++;
+	this.index = diskCount++;
 	this.init();
 	this.bindEvent();
 }
@@ -48,14 +48,16 @@ function Disk(obj) {
  */
 Disk.prototype.init = function() {
 	let containerEl = document.querySelector(this.selector);
+	containerEl.style.position = 'relative';
+	containerEl.style.paddingTop = '95px';
 	// 创建磁碟
 	let diskEl = document.createElement('div');
-	diskEl.className = 'song-disk disk-' + diskCount;
+	diskEl.className = 'song-disk disk-' + this.index;
 	containerEl.append(diskEl);
 	let offset = diskEl.getBoundingClientRect();
 	this.originX = offset.left + diskEl.offsetWidth / 2;
 	this.originY = offset.top + diskEl.offsetHeight / 2;
-	this.diskEl = document.querySelector('.song-disk.disk-' + diskCount);
+	this.diskEl = document.querySelector('.song-disk.disk-' + this.index);
 	// 创建针
 	let needleEl = document.createElement('div');
 	needleEl.className = 'song-needle';
@@ -69,15 +71,15 @@ Disk.prototype.init = function() {
 	diskEl.append(coverEl);
 	// 创建播放停止按钮
 	let playEl = document.createElement('p');
-	playEl.innerHTML = `<input type="button" value="播放" id="play-${diskCount}">`;
+	playEl.innerHTML = `<input type="button" value="播放" id="play-${this.index}">`;
 	containerEl.append(playEl);
 	// 创建音量控制条
 	let volumnEl = document.createElement('p');
-	volumnEl.innerHTML = `音量：<input type="range" min="${VOLUMNMIN}" max="${VOLUMNMAX}" id="volumn-${diskCount}">`;
+	volumnEl.innerHTML = `音量：<input type="range" min="${VOLUMNMIN}" max="${VOLUMNMAX}" id="volumn-${this.index}">`;
 	containerEl.append(volumnEl);
 	// 创建音频控制条
 	let frequencyEl = document.createElement('p');
-	frequencyEl.innerHTML = `音频：<input type="range" min="${FREQUENCYMIN}" max="${FREQUENCYMAX}" id="frequency-${diskCount}">`;
+	frequencyEl.innerHTML = `音频：<input type="range" min="${FREQUENCYMIN}" max="${FREQUENCYMAX}" id="frequency-${this.index}">`;
 	containerEl.append(frequencyEl);
 }
 
@@ -102,7 +104,7 @@ Disk.prototype.bindEvent = function() {
  *
  */
 Disk.prototype.clickPlayHandle = function() {
-	document.querySelector('#play-' + diskCount).addEventListener('click', (event) => {
+	document.querySelector('#play-' + this.index).addEventListener('click', (event) => {
 		if (this.isStart) {
 			this.sound.stop();
 			event.target.value = '播放';
@@ -129,7 +131,7 @@ Disk.prototype.clickPlayHandle = function() {
  *
  */
 Disk.prototype.startSound = function() {
-	let playEl = document.querySelector('#play-' + diskCount);
+	let playEl = document.querySelector('#play-' + this.index);
 	playEl.value = '停止';
 	this.sound.start();
 	this.duration = this.sound.bufferSource.buffer.duration;
@@ -145,7 +147,7 @@ Disk.prototype.startSound = function() {
  *
  */
 Disk.prototype.stopSound = function() {
-	let playEl = document.querySelector('#play-' + diskCount);
+	let playEl = document.querySelector('#play-' + this.index);
 	playEl.value = '播放';
 	this.sound.stop();
 	this.resetProgress();
@@ -201,7 +203,7 @@ Disk.prototype.rotateTo = function(degree) {
  *
  */
 Disk.prototype.controlVolumnHandle = function() {
-	document.querySelector('#volumn-' + diskCount).addEventListener('change', (event) => {
+	document.querySelector('#volumn-' + this.index).addEventListener('change', (event) => {
 		this.volumn = event.target.value / 50;
 		this.sound.controlVolume(this.volumn);
 	});
@@ -212,7 +214,7 @@ Disk.prototype.controlVolumnHandle = function() {
  *
  */
 Disk.prototype.resetVolumn = function() {
-	document.querySelector('#volumn-' + diskCount).value = (VOLUMNMAX - VOLUMNMIN) / 2;
+	document.querySelector('#volumn-' + this.index).value = (VOLUMNMAX - VOLUMNMIN) / 2;
 }
 
 /**
@@ -220,7 +222,7 @@ Disk.prototype.resetVolumn = function() {
  *
  */
 Disk.prototype.controlFrequencyHandle = function() {
-	document.querySelector('#frequency-' + diskCount).addEventListener('change', (event) => {
+	document.querySelector('#frequency-' + this.index).addEventListener('change', (event) => {
 		this.frequency = event.target.value;
 		this.sound.controlFrequency(this.frequency);
 	});
@@ -231,7 +233,7 @@ Disk.prototype.controlFrequencyHandle = function() {
  *
  */
 Disk.prototype.resetFrequency = function() {
-	document.querySelector('#frequency-' + diskCount).value = 5000;
+	document.querySelector('#frequency-' + this.index).value = 5000;
 }
 
 /**
