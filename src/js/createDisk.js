@@ -7,6 +7,7 @@
 import audioContext from './audioContext.js';
 import Source from './createSource.js';
 import Oscillator from './createOscillator.js';
+import soundList from './soundList.js';
 
 // 音量最小
 const VOLUMNMIN = 0;
@@ -29,6 +30,7 @@ function Disk(obj) {
 	this.volumn = 1;
 	this.frequency = 5000;
 	this.loop = obj.loop;
+	this.soundName = obj.soundName;
 	this.sound = new Source({
 		soundName: obj.soundName,
 		loop: obj.loop || true
@@ -37,7 +39,7 @@ function Disk(obj) {
 		type: 'square',
 		frequency: 1000
 	})
-	this.index = diskCount++;
+	this.index = ++diskCount;
 	this.init();
 	this.bindEvent();
 }
@@ -60,19 +62,19 @@ Disk.prototype.init = function() {
 	this.diskEl = document.querySelector('.song-disk.disk-' + this.index);
 	// 创建针
 	let needleEl = document.createElement('div');
-	needleEl.className = 'song-needle';
+	needleEl.className = 'song-needle needle-' + this.index;
 	containerEl.append(needleEl);
 	// 创建封面
 	let coverEl = document.createElement('div');
-	coverEl.className = 'song-cover';
+	coverEl.className = 'song-cover cover-' + this.index;
 	let coverImg = document.createElement('img');
-	coverImg.src = "http://p1.music.126.net/5KE-Os38if8v9_d_qSf90w==/19183179369981589.webp?imageView&thumbnail=720x0&quality=75&tostatic=0&type=webp";
+	coverImg.src = soundList[this.soundName].cover;
 	coverEl.append(coverImg);
 	diskEl.append(coverEl);
 	// 创建播放停止按钮
-	let playEl = document.createElement('p');
-	playEl.innerHTML = `<input type="button" value="播放" id="play-${this.index}">`;
-	containerEl.append(playEl);
+	// let playEl = document.createElement('p');
+	// playEl.innerHTML = `<input type="button" value="播放" id="play-${this.index}">`;
+	// containerEl.append(playEl);
 	// 创建音量控制条
 	let volumnEl = document.createElement('p');
 	volumnEl.innerHTML = `音量：<input type="range" min="${VOLUMNMIN}" max="${VOLUMNMAX}" id="volumn-${this.index}">`;
@@ -88,13 +90,14 @@ Disk.prototype.init = function() {
  *
  */
 Disk.prototype.bindEvent = function() {
-	this.clickPlayHandle();
+	// this.clickPlayHandle();
 	this.controlVolumnHandle();
 	this.controlFrequencyHandle();
 	this.mousemoveDiskHandle();
 	this.mousedownDiskHandle();
 	this.mouseupDiskHandle();
 	this.mouseleaveDiskHandle();
+	this.needleClickHandle();
 	this.dragoverHandle();
 	this.dropHandle();
 }
@@ -103,43 +106,45 @@ Disk.prototype.bindEvent = function() {
  * 点击播放停止按钮
  *
  */
-Disk.prototype.clickPlayHandle = function() {
-	document.querySelector('#play-' + this.index).addEventListener('click', (event) => {
-		if (this.isStart) {
-			this.sound.stop();
-			event.target.value = '播放';
-			this.resetProgress();
-			this.resetVolumn();
-			this.resetFrequency();
+// Disk.prototype.clickPlayHandle = function() {
+// 	document.querySelector('#play-' + this.index).addEventListener('click', (event) => {
+// 		if (this.isStart) {
+// 			this.sound.stop();
+// 			event.target.value = '播放';
+// 			this.resetProgress();
+// 			this.resetVolumn();
+// 			this.resetFrequency();
 
-		} else {
-			this.sound.start();
-			event.target.value = '停止';
+// 		} else {
+// 			this.sound.start();
+// 			event.target.value = '停止';
 
-			this.duration = this.sound.bufferSource.buffer.duration;
-			this.duration > 1 && window.requestAnimationFrame(() => {
-				this.startProgress();
-			});
-		}
-		this.isStart = !this.isStart;
-		this.isRotating = !this.isRotating;
-	});
-}
+// 			this.duration = this.sound.bufferSource.buffer.duration;
+// 			this.duration > 1 && window.requestAnimationFrame(() => {
+// 				this.startProgress();
+// 			});
+// 		}
+// 		this.isStart = !this.isStart;
+// 		this.isRotating = !this.isRotating;
+// 	});
+// }
 
 /**
  * 播放音乐
  *
  */
 Disk.prototype.startSound = function() {
-	let playEl = document.querySelector('#play-' + this.index);
-	playEl.value = '停止';
-	this.sound.start();
-	this.duration = this.sound.bufferSource.buffer.duration;
-	this.duration > 1 && window.requestAnimationFrame(() => {
-		this.startProgress();
-	});
-	this.isStart = true;
-	this.isRotating = true;
+	let needleEl = document.querySelector('.song-needle.needle-' + this.index);
+	needleEl.setAttribute('data-status', 'on');
+	setTimeout(() => {
+		this.sound.start();
+		this.duration = this.sound.bufferSource.buffer.duration;
+		this.duration > 1 && window.requestAnimationFrame(() => {
+			this.startProgress();
+		});
+		this.isStart = true;
+		this.isRotating = true;
+	}, 500);
 }
 
 /**
@@ -147,8 +152,8 @@ Disk.prototype.startSound = function() {
  *
  */
 Disk.prototype.stopSound = function() {
-	let playEl = document.querySelector('#play-' + this.index);
-	playEl.value = '播放';
+	let needleEl = document.querySelector('.song-needle.needle-' + this.index);
+	needleEl.setAttribute('data-status', '');
 	this.sound.stop();
 	this.resetProgress();
 	this.resetVolumn();
@@ -237,6 +242,18 @@ Disk.prototype.resetFrequency = function() {
 }
 
 /**
+ * 设置封面
+ *
+ */
+Disk.prototype.setCover = function(soundName) {
+	let cover = soundList[soundName].cover;
+	if (soundName !== this.soundName && cover) {
+		this.soundName = soundName;
+		document.querySelector('.song-cover.cover-' + this.index + '>img').src = cover;
+	}
+}
+
+/**
  * 滑动磁碟
  *
  */
@@ -252,7 +269,7 @@ Disk.prototype.mousemoveDiskHandle = function() {
 }
 
 /**
- * 鼠标点击
+ * 鼠标点击磁碟
  *
  */
 Disk.prototype.mousedownDiskHandle = function() {
@@ -271,7 +288,7 @@ Disk.prototype.mousedownDiskHandle = function() {
 }
 
 /**
- * 鼠标松开
+ * 鼠标松开磁碟
  *
  */
 Disk.prototype.mouseupDiskHandle = function() {
@@ -292,7 +309,7 @@ Disk.prototype.mouseupDiskHandle = function() {
 }
 
 /**
- * 鼠标离开
+ * 鼠标离开磁碟
  *
  */
 Disk.prototype.mouseleaveDiskHandle = function() {
@@ -309,6 +326,17 @@ Disk.prototype.mouseleaveDiskHandle = function() {
 				this.startProgress();
 			});
 		}
+	});
+}
+
+/**
+ * 鼠标点击针
+ *
+ */
+Disk.prototype.needleClickHandle = function() {
+	let needleEl = document.querySelector('.song-needle.needle-' + this.index);
+	needleEl.addEventListener('click', (event) => {
+		this.isStart ? this.stopSound() : this.startSound();
 	});
 }
 
@@ -337,7 +365,8 @@ Disk.prototype.dropHandle = function() {
 						soundName: name,
 						loop: this.loop || true
 					});
-					this.startSound();
+					this.setCover(name);
+					// this.startSound();
 				});
 			}
 		}

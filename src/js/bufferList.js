@@ -25,7 +25,7 @@ function createBufferList() {
 	// 遍历存储音频文件地址
 	for (let key in soundList) {
 		bufferPromise = bufferPromise.then(() => {
-			return decodeAudioData(audioContext, soundList[key])
+			return decodeAudioData(audioContext, soundList[key].link)
 		}).then((buffer) => {
 			bufferList[key] = buffer;
 			return promise();

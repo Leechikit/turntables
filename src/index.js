@@ -15,7 +15,7 @@ let disk1 = new Disk({
 
 let disk2 = new Disk({
 	selector: '#song-wrap-2',
-	soundName: 'drunk',
+	soundName: 'hihat',
 	loop: false
 });
 

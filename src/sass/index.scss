@@ -65,6 +65,7 @@ img {
     width: 1000px;
     background-color: #232121;
     border-radius: 20px;
+    overflow: hidden;
     &>div{
         
     }
@@ -74,7 +75,7 @@ img {
 	height: 444px;
 	transform-origin:center center;
     will-change: transform;
-    cursor: pointer;
+    cursor: -webkit-grab;
     // opacity: 0;
     &::before{
         content: " ";
@@ -116,13 +117,21 @@ img {
 }
 .song-needle{
     position: absolute;
-    top:0;
+    top:-14px;
     left:48%;
     z-index: 10;
-    width: 144px;
-    height: 206px;
+    width: 143px;
+    height: 218px;
+    cursor: pointer;
     background:transparent url(../image/needle.png) left top no-repeat;
     background-size: contain;
+    transform-origin: 15% 2.7%;
+    transform: rotate(-30deg);
+    transition: transform .5s ease-in-out;
+    &[data-status="on"]{
+        transform: rotate(0);
+        cursor: alias;
+    }
 }
 
 @keyframes diskRotate{
