@@ -133,6 +133,10 @@ img {
         cursor: alias;
     }
 }
+.control{
+    position: relative;
+    z-index: 10;
+}
 
 @keyframes diskRotate{
 	0{

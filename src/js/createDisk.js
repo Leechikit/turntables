@@ -71,16 +71,14 @@ Disk.prototype.init = function() {
 	coverImg.src = soundList[this.soundName].cover;
 	coverEl.append(coverImg);
 	diskEl.append(coverEl);
-	// 创建播放停止按钮
-	// let playEl = document.createElement('p');
-	// playEl.innerHTML = `<input type="button" value="播放" id="play-${this.index}">`;
-	// containerEl.append(playEl);
 	// 创建音量控制条
 	let volumnEl = document.createElement('p');
+	volumnEl.className = 'control';
 	volumnEl.innerHTML = `音量：<input type="range" min="${VOLUMNMIN}" max="${VOLUMNMAX}" id="volumn-${this.index}">`;
 	containerEl.append(volumnEl);
 	// 创建音频控制条
 	let frequencyEl = document.createElement('p');
+	frequencyEl.className = 'control';
 	frequencyEl.innerHTML = `音频：<input type="range" min="${FREQUENCYMIN}" max="${FREQUENCYMAX}" id="frequency-${this.index}">`;
 	containerEl.append(frequencyEl);
 }
@@ -90,7 +88,6 @@ Disk.prototype.init = function() {
  *
  */
 Disk.prototype.bindEvent = function() {
-	// this.clickPlayHandle();
 	this.controlVolumnHandle();
 	this.controlFrequencyHandle();
 	this.mousemoveDiskHandle();
@@ -101,33 +98,6 @@ Disk.prototype.bindEvent = function() {
 	this.dragoverHandle();
 	this.dropHandle();
 }
-
-/**
- * 点击播放停止按钮
- *
- */
-// Disk.prototype.clickPlayHandle = function() {
-// 	document.querySelector('#play-' + this.index).addEventListener('click', (event) => {
-// 		if (this.isStart) {
-// 			this.sound.stop();
-// 			event.target.value = '播放';
-// 			this.resetProgress();
-// 			this.resetVolumn();
-// 			this.resetFrequency();
-
-// 		} else {
-// 			this.sound.start();
-// 			event.target.value = '停止';
-
-// 			this.duration = this.sound.bufferSource.buffer.duration;
-// 			this.duration > 1 && window.requestAnimationFrame(() => {
-// 				this.startProgress();
-// 			});
-// 		}
-// 		this.isStart = !this.isStart;
-// 		this.isRotating = !this.isRotating;
-// 	});
-// }
 
 /**
  * 播放音乐
@@ -366,7 +336,6 @@ Disk.prototype.dropHandle = function() {
 						loop: this.loop || true
 					});
 					this.setCover(name);
-					// this.startSound();
 				});
 			}
 		}
