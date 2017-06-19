@@ -8,7 +8,8 @@
 import soundList from './soundList.js';
 // 音频列表元素
 let songListEl = document.querySelector('#JsongList');
-
+let img = document.createElement('img');
+img.src = "../image/dragdefault.png";
 /**
  * 创建音频列表
  *
@@ -45,8 +46,6 @@ function eventBind() {
 function dragstartHandle() {
 	songListEl.addEventListener('dragstart', (event) => {
 		/*setDragImage start*/
-		let img = document.createElement('img');
-		img.src = "../image/dragdefault.png";
 		event.dataTransfer.setDragImage(img, 100, 100);
 		/*setDragImage end*/
 

@@ -62,17 +62,20 @@ img {
     display: flex;
     flex-wrap:wrap;
     justify-content:space-around;
-    width: 1000px;
-    background-color: #232121;
+    width: 80%;
+    background-image: linear-gradient(to bottom, #111, #292626 30%, #232121, #000);
+    border: 15px solid #191717;
     border-radius: 20px;
     overflow: hidden;
-    &>div{
-        
-    }
+}
+div[id|="song-wrap"]{
+    width: 40%;
+    padding-top:8%;
 }
 .song-disk{
-	width:444px;
-	height: 444px;
+    position: relative;
+	width:100%;
+	padding-top: 100%;
 	transform-origin:center center;
     will-change: transform;
     cursor: -webkit-grab;
@@ -103,13 +106,16 @@ img {
         position: absolute;
         left: 50%;
         top: 50%;
-        width:280px;
-        height: 280px;
-        margin-top: -140px;
-        margin-left: -140px;
+        width:64%;
+        padding-top: 64%;
+        margin-top: -32%;
+        margin-left: -32%;
         background:transparent url(../image/default.png) left top no-repeat;
         background-size: contain;
         img{
+            position: absolute;
+            left:0;
+            top:0;
             width: 100%;
             vertical-align: middle;
         }
@@ -117,11 +123,11 @@ img {
 }
 .song-needle{
     position: absolute;
-    top:-14px;
+    top:-2%;
     left:48%;
     z-index: 10;
-    width: 143px;
-    height: 218px;
+    width: 32%;
+    padding-top: 49%;
     cursor: pointer;
     background:transparent url(../image/needle.png) left top no-repeat;
     background-size: contain;
@@ -151,22 +157,25 @@ img {
 }
 
 .song-list{
-    width:200px;
-    border-radius: 8px;
-    overflow: hidden;
+    width:30%;
+    height: 72px;
+    border: 4px solid #191717;
+    border-radius: 4px;
+    margin: 5px;
+    overflow: auto;
     flex-shrink:0;
     li{
         width: 100%;
-        font-size: 14px;
+        font-size: 12px;
         line-height: 24px;
         color:#fff;
         text-align: center;
         cursor: -webkit-grab;
         &:nth-child(even){
-            background-color: rgba(#30bb30, 0.7);
+            background-color: #313131;
         }
         &:nth-child(odd){
-            background-color: rgba(#5656ea, 0.7);
+            background-color: #404240;
         }
     }
 }
