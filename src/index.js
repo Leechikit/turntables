@@ -21,8 +21,7 @@ let disk2 = new Disk({
 
 songList({
 	selector: '#JsongList'
-})
-
+});
 // // 创建promise
 // let promise = () => {
 // 	return Promise.resolve();

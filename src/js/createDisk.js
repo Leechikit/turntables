@@ -93,9 +93,11 @@ Disk.prototype.bindEvent = function() {
 	this.mousedownDiskHandle();
 	this.mouseupDiskHandle();
 	this.mouseleaveDiskHandle();
-	this.needleClickHandle();
-	this.dragoverHandle();
-	this.dropHandle();
+	this.clickNeedleHandle();
+	this.dragoverDiskHandle();
+	this.dropDiskHandle();
+	this.clickRangeHandle();
+	this.mousemoveRangeHandle();
 }
 
 /**
@@ -306,7 +308,7 @@ Disk.prototype.mouseleaveDiskHandle = function() {
  * 鼠标点击针
  *
  */
-Disk.prototype.needleClickHandle = function() {
+Disk.prototype.clickNeedleHandle = function() {
 	let needleEl = document.querySelector('.song-needle.needle-' + this.index);
 	needleEl.addEventListener('click', (event) => {
 		this.isStart ? this.stopSound() : this.startSound();
@@ -317,7 +319,7 @@ Disk.prototype.needleClickHandle = function() {
  * dragover
  *
  */
-Disk.prototype.dragoverHandle = function() {
+Disk.prototype.dragoverDiskHandle = function() {
 	this.diskEl.addEventListener("dragover", (event) => {
 		event.preventDefault();
 	});
@@ -327,7 +329,7 @@ Disk.prototype.dragoverHandle = function() {
  * drop
  *
  */
-Disk.prototype.dropHandle = function() {
+Disk.prototype.dropDiskHandle = function() {
 	this.diskEl.addEventListener("drop", (event) => {
 		let dataList = event.dataTransfer.items;
 		for (let i = 0, len = dataList.length; i < len; i++) {
@@ -343,6 +345,40 @@ Disk.prototype.dropHandle = function() {
 			}
 		}
 	});
+}
+
+/**
+ * input[type="range"] click handle
+ *
+ */
+Disk.prototype.clickRangeHandle = function() {
+	let rangeEls = document.querySelectorAll('input[type="range"]');
+	for (let i = 0, len = rangeEls.length; i < len; i++) {
+		rangeEls[i].addEventListener('click', (event) => {
+			let val = event.target.value;
+			let max = event.target.max;
+			let min = event.target.min;
+			let percentage = val / (max - min) * 100 + '%';
+			utils.changeRangeBackground(event.target, percentage);
+		});
+	}
+}
+
+/**
+ * input[type="range"] mousemove handle
+ *
+ */
+Disk.prototype.mousemoveRangeHandle = function() {
+	let rangeEls = document.querySelectorAll('input[type="range"]');
+	for (let i = 0, len = rangeEls.length; i < len; i++) {
+		rangeEls[i].addEventListener('mousemove', (event) => {
+			let val = event.target.value;
+			let max = event.target.max;
+			let min = event.target.min;
+			let percentage = val / (max - min) * 100 + '%';
+			utils.changeRangeBackground(event.target, percentage);
+		});
+	}
 }
 
 /**
@@ -374,6 +410,10 @@ let utils = {
 			degree = 270 + degree;
 		}
 		return degree;
+	},
+	// input[type="range"]背景颜色
+	changeRangeBackground(target, percentage) {
+		target.style.backgroundImage = `-webkit-linear-gradient(left ,#f22 0%,#f22 ${percentage},#fff ${percentage}, #fff 100%)`
 	}
 }
 
