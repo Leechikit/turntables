@@ -70,16 +70,20 @@ Disk.prototype.init = function() {
 	coverImg.src = soundList[this.soundName].cover;
 	coverEl.append(coverImg);
 	diskEl.append(coverEl);
+	// 创建控制条列表
+	let controlListEl = document.createElement('div');
+	controlListEl.className = 'control-list';
+	containerEl.append(controlListEl);
 	// 创建音量控制条
 	let volumnEl = document.createElement('p');
 	volumnEl.className = 'control';
-	volumnEl.innerHTML = `音量：<input type="range" min="${VOLUMNMIN}" max="${VOLUMNMAX}" id="volumn-${this.index}">`;
-	containerEl.append(volumnEl);
+	volumnEl.innerHTML = `<input type="range" min="${VOLUMNMIN}" max="${VOLUMNMAX}" id="volumn-${this.index}"><span class="mark">音<br/>量</span>`;
+	controlListEl.append(volumnEl);
 	// 创建音频控制条
 	let frequencyEl = document.createElement('p');
 	frequencyEl.className = 'control';
-	frequencyEl.innerHTML = `音频：<input type="range" min="${FREQUENCYMIN}" max="${FREQUENCYMAX}" id="frequency-${this.index}">`;
-	containerEl.append(frequencyEl);
+	frequencyEl.innerHTML = `<input type="range" min="${FREQUENCYMIN}" max="${FREQUENCYMAX}" id="frequency-${this.index}"><span class="mark">频<br/>率</span>`;
+	controlListEl.append(frequencyEl);
 }
 
 /**
