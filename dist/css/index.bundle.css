@@ -1,0 +1,278 @@
+body,
+dd,
+dl,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ol,
+p,
+ul {
+  margin: 0; }
+
+body {
+  font-family: tahoma, arial, 'Hiragino Sans GB', 'Mircosoft Yahei', sans-serif; }
+
+ol,
+ul {
+  padding: 0; }
+
+li {
+  list-style: none; }
+
+a {
+  background-color: transparent;
+  text-decoration: none; }
+
+a:active,
+a:hover,
+button,
+input,
+textarea {
+  outline: 0; }
+
+img {
+  border-style: none; }
+
+* {
+  box-sizing: border-box; }
+
+html {
+  font-size: 10px; }
+
+body.s-loading::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.5); }
+
+body.s-loading::before {
+  content: attr(data-load);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1000;
+  font-size: 10rem;
+  color: #fff;
+  text-align: center;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%); }
+
+.g-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background: transparent url(http://p3.music.126.net/aPCw1HlN5j_msuE0qaSirg==/17982512672538089.jpg) left top no-repeat;
+  background-size: cover; }
+
+.disk-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  width: 90%;
+  min-width: 90rem;
+  font-size: 10px;
+  background-image: linear-gradient(to bottom, #111, #292626 30%, #232121, #000);
+  border: 1.5rem solid #191717;
+  border-radius: 20px;
+  overflow: hidden; }
+
+div[id|="song-wrap"] {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  width: 33rem;
+  margin-top: 5.6rem;
+  margin-right: 8rem; }
+
+.song-disk {
+  position: relative;
+  width: 100%;
+  padding-top: 100%;
+  -webkit-transform-origin: center center;
+          transform-origin: center center;
+  will-change: transform;
+  cursor: -webkit-grab; }
+  .song-disk::before {
+    content: " ";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 2;
+    background: url(https://leechikit.github.io/resources/article/turntables/image/disk.png?69796123ad7cfe95781ea38aac8f2d48) no-repeat;
+    background-size: contain; }
+  .song-disk::after {
+    content: " ";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 3;
+    background: url(https://leechikit.github.io/resources/article/turntables/image/light.png?996fc8a2bc62e1ab3f51f135fc459577) no-repeat;
+    background-size: contain; }
+  .song-disk .song-cover {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 65%;
+    padding-top: 65%;
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+    background: transparent url(https://leechikit.github.io/resources/article/turntables/image/default.png?7c9b3adc16f5485c2bfbe8a540534188) left top no-repeat;
+    background-size: contain; }
+    .song-disk .song-cover img {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      vertical-align: middle; }
+
+.song-needle {
+  position: absolute;
+  top: -6.4rem;
+  left: 50%;
+  z-index: 10;
+  width: 8.9rem;
+  height: 13.5rem;
+  cursor: pointer;
+  background: transparent url(https://leechikit.github.io/resources/article/turntables/image/needle.png?8398c7d8c8402c7db8fe5d33f3a89167) left top no-repeat;
+  background-size: contain;
+  -webkit-transform-origin: 15% 2.7%;
+          transform-origin: 15% 2.7%;
+  -webkit-transform: rotate(-30deg);
+          transform: rotate(-30deg);
+  transition: -webkit-transform .5s ease-in-out;
+  transition: transform .5s ease-in-out;
+  transition: transform .5s ease-in-out, -webkit-transform .5s ease-in-out; }
+  .song-needle[data-status="on"] {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+    cursor: alias; }
+
+.control-list {
+  position: absolute;
+  top: 9rem;
+  right: -1rem;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  width: 16rem;
+  -webkit-transform-origin: top right;
+          transform-origin: top right;
+  -webkit-transform: rotate(-90deg);
+          transform: rotate(-90deg); }
+  .control-list .control {
+    position: relative;
+    z-index: 10;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    width: 100%;
+    height: 2.2rem;
+    font-size: 12px;
+    line-height: 2rem;
+    color: #fff; }
+    .control-list .control .mark {
+      -ms-flex-negative: 0;
+          flex-shrink: 0;
+      line-height: 1.6rem;
+      -webkit-transform: rotate(90deg) translateY(-1.6rem);
+              transform: rotate(90deg) translateY(-1.6rem); }
+    .control-list .control input[type="range"] {
+      -webkit-appearance: none;
+      border-radius: 2px;
+      width: 80%;
+      height: 3px;
+      background-image: -webkit-linear-gradient(left, #f22 0%, #f22 50%, #fff 50%, #fff 100%);
+      box-shadow: inset #ebb 0 0 5px;
+      outline: none;
+      transition: .1s;
+      cursor: pointer; }
+      .control-list .control input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        position: relative;
+        width: 10px;
+        height: 10px;
+        background: #f22;
+        border-radius: 50%;
+        transition: .2s; }
+        .control-list .control input[type="range"]::-webkit-slider-thumb:hover, .control-list .control input[type="range"]::-webkit-slider-thumb:active {
+          width: 16px;
+          height: 16px; }
+
+@-webkit-keyframes diskRotate {
+  0% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0); }
+  50% {
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg); } }
+
+@keyframes diskRotate {
+  0% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0); }
+  50% {
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg); } }
+
+.song-list {
+  width: 100%; }
+  .song-list ul {
+    width: 30%;
+    height: 80px;
+    border: 4px solid #191717;
+    border-radius: 4px;
+    margin: 2rem auto;
+    overflow: auto;
+    -ms-flex-negative: 0;
+        flex-shrink: 0; }
+  .song-list li {
+    width: 100%;
+    font-size: 12px;
+    line-height: 24px;
+    color: #fff;
+    text-align: center;
+    cursor: -webkit-grab; }
+    .song-list li:nth-child(even) {
+      background-color: #313131; }
+    .song-list li:nth-child(odd) {
+      background-color: #404240; }

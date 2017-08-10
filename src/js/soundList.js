@@ -6,20 +6,20 @@
  */
 
 export default {
-	drunk: {
-		cover: 'http://p1.music.126.net/fftIuPrG25y-k73fHyUI0w==/2133052557923258.jpg?imageView&thumbnail=360x0&quality=75&tostatic=0',
-		link: '../sounds/drunk.mp3'
+	'Good Goodbye': {
+		cover: 'https://y.gtimg.cn/music/photo_new/T002R300x300M000004XEwud03XB6I.jpg',
+		link: 'https://leechikit.github.io/resources/article/turntables/song/GoodGoodBye.m4a'
 	},
-	'眉飞色舞': {
-		cover: 'http://p1.music.126.net/5KE-Os38if8v9_d_qSf90w==/19183179369981589.webp?imageView&thumbnail=720x0&quality=75&tostatic=0&type=webp',
-		link: '../sounds/眉飞色舞.mp3'
+	'Heavy': {
+		cover: 'https://y.gtimg.cn/music/photo_new/T002R300x300M000001TZBRx2mZw8A.jpg',
+		link: 'https://leechikit.github.io/resources/article/turntables/song/Heavy.m4a'
 	},
-	'可不可以不勇敢': {
-		cover: 'http://p1.music.126.net/rOyWF-Fb3I5dGYyKiTxWtQ==/17801093253909041.jpg?imageView&thumbnail=360x0&quality=75&tostatic=0',
-		link: '../sounds/可不可以不勇敢.mp3'
+	'Numb': {
+		cover: 'https://y.gtimg.cn/music/photo_new/T002R300x300M000002vmOxc3x7FWa.jpg',
+		link: 'https://leechikit.github.io/resources/article/turntables/song/Numb.m4a'
 	},
-	'DJ SONG':{
-		cover: 'http://p1.music.126.net/i3uyC0I4mcUnKgXFCnGUOg==/109951162945982389.jpg?param=480y480',
-		link: '../sounds/dj.m4a'
+	'In The End':{
+		cover: 'https://y.gtimg.cn/music/photo_new/T002R300x300M000004ImTxE1OkGqR.jpg',
+		link: 'https://leechikit.github.io/resources/article/turntables/song/InTheEnd.m4a'
 	}
 }

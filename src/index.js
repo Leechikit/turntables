@@ -9,13 +9,13 @@ import songList from './js/createSongList.js';
 
 let disk1 = new Disk({
 	selector: '#song-wrap-1',
-	soundName: 'drunk',
+	soundName: 'Numb',
 	loop: false
 });
 
 let disk2 = new Disk({
 	selector: '#song-wrap-2',
-	soundName: '眉飞色舞',
+	soundName: 'Good Goodbye',
 	loop: false
 });
 
