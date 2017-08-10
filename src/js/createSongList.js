@@ -9,7 +9,7 @@ import soundList from './soundList.js';
 // 音频列表元素
 let songListEl = document.querySelector('#JsongList');
 let img = document.createElement('img');
-img.src = "../image/dragdefault.png";
+img.src = "https://leechikit.github.io/resources/article/turntables/image/dragdefault.png";
 /**
  * 创建音频列表
  *

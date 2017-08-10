@@ -21,21 +21,20 @@ let bufferList = {};
  *
  */
 function createBufferList() {
-	let bufferPromise = promise();
+	let promiseArrs = [];
 	// 遍历存储音频文件地址
 	for (let key in soundList) {
-		bufferPromise = bufferPromise.then(() => {
+		let bufferPromise = promise().then(() => {
 			return decodeAudioData(audioContext, soundList[key].link)
 		}).then((buffer) => {
 			bufferList[key] = buffer;
 			return promise();
 		});
-		if (--count < 1) {
-			bufferPromise = bufferPromise.then(() => {
-				downloadCallback();
-			})
-		}
+		promiseArrs.push(bufferPromise);
 	}
+	Promise.all(promiseArrs).then((values) => {
+		downloadCallback();
+	});
 }
 
 /**
@@ -43,7 +42,7 @@ function createBufferList() {
  *
  */
 function downloadCallback() {
-	console.log('finish');
+	document.body.className = '';
 }
 
 createBufferList();

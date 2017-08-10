@@ -13,7 +13,8 @@ exports.default = {
 	//端口
 	port: 2333,
 	//静态资源地址
-	publicPath: '//127.0.0.1:2333/',
+	// publicPath: '//127.0.0.1:2333/',
+	publicPath: 'https://leechikit.github.io/resources/article/turntables/',
 	//项目输出地址
 	outputPath: './dist/'
 }
