@@ -85,17 +85,14 @@ body.s-loading{
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background: transparent url(http://p3.music.126.net/aPCw1HlN5j_msuE0qaSirg==/17982512672538089.jpg) left top no-repeat;
-    background-size: cover;
+    background-image: linear-gradient(to bottom, #42568c, #a6c1d6);
 }
 
 .disk-box {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    width: 90%;
-    min-width: 90rem;
-    max-width: 120rem;
+    width: 90rem;
     font-size: 10px;
     background-image: linear-gradient(to bottom, #111, #292626 30%, #232121, #000);
     border: 1.5rem solid #191717;

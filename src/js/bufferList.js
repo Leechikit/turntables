@@ -13,7 +13,6 @@ import soundList from './soundList.js';
 let promise = () => {
 	return Promise.resolve();
 }
-let count = Object.keys(soundList).length;
 let bufferList = {};
 
 /**
