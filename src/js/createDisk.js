@@ -100,8 +100,6 @@ Disk.prototype.bindEvent = function() {
 	this.clickNeedleHandle();
 	this.dragoverDiskHandle();
 	this.dropDiskHandle();
-	this.clickRangeHandle();
-	this.mousemoveRangeHandle();
 }
 
 /**
@@ -352,40 +350,6 @@ Disk.prototype.dropDiskHandle = function() {
 }
 
 /**
- * input[type="range"] click handle
- *
- */
-Disk.prototype.clickRangeHandle = function() {
-	let rangeEls = document.querySelectorAll('input[type="range"]');
-	for (let i = 0, len = rangeEls.length; i < len; i++) {
-		rangeEls[i].addEventListener('click', (event) => {
-			let val = event.target.value;
-			let max = event.target.max;
-			let min = event.target.min;
-			let percentage = val / (max - min) * 100 + '%';
-			utils.changeRangeBackground(event.target, percentage);
-		});
-	}
-}
-
-/**
- * input[type="range"] mousemove handle
- *
- */
-Disk.prototype.mousemoveRangeHandle = function() {
-	let rangeEls = document.querySelectorAll('input[type="range"]');
-	for (let i = 0, len = rangeEls.length; i < len; i++) {
-		rangeEls[i].addEventListener('mousemove', (event) => {
-			let val = event.target.value;
-			let max = event.target.max;
-			let min = event.target.min;
-			let percentage = val / (max - min) * 100 + '%';
-			utils.changeRangeBackground(event.target, percentage);
-		});
-	}
-}
-
-/**
  * 工具
  *
  */
@@ -414,10 +378,6 @@ let utils = {
 			degree = 270 + degree;
 		}
 		return degree;
-	},
-	// input[type="range"]背景颜色
-	changeRangeBackground(target, percentage) {
-		target.style.backgroundImage = `-webkit-linear-gradient(left ,#f22 0%,#f22 ${percentage},#fff ${percentage}, #fff 100%)`
 	}
 }
 

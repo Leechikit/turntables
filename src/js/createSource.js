@@ -27,6 +27,7 @@ Source.prototype.start = function(second = 0) {
 		this.filter.type = 'lowpass';
 		this.filter.frequency.value = 5000;
 		this.bufferSource.buffer = buffers[this.config.soundName];
+		this.bufferSource.playbackRate.value = - 1;
 		this.bufferSource.loop = this.config.loop;
 		this.bufferSource.connect(this.gainNode);
 		this.gainNode.connect(this.filter);
