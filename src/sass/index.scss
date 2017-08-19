@@ -176,6 +176,20 @@ div[id|="song-wrap"] {
 }
 .control-box{
     position: relative;
+    width: 20rem;
+    .control-list-1{
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+    .control-list-2{
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+
+    }
     .control {
         position: relative;
         z-index: 10;
