@@ -14,38 +14,45 @@
 			<div class="song-list" id="JsongList"></div>
 		</div> -->
 		<div class="disk-box">
-			<div id="song-wrap-1" style="position: relative;">
-				<div class="song-disk disk-1">
-					<div class="song-cover cover-1"><img src="https://y.gtimg.cn/music/photo_new/T002R300x300M000001TZBRx2mZw8A.jpg"></div>
+			<section class="section">
+				<div id="song-wrap-1" style="position: relative;">
+					<div class="song-disk disk-1">
+						<div class="song-cover cover-1"><img src="https://y.gtimg.cn/music/photo_new/T002R300x300M000001TZBRx2mZw8A.jpg"></div>
+					</div>
+					<div class="song-needle needle-1"></div>
 				</div>
-				<div class="song-needle needle-1"></div>
-			</div>
-			<div class="control-box">
-				<div class="control-list-1">
-					<p class="control"><span class="mark">音量：</span><input type="range" min="0" max="100" id="volumn-1" step="1"></p>
-					<p class="control"><span class="mark">低频：</span><input type="range" min="0" max="10000" id="frequency-1" step="1"></p>
-					<p class="control"><span class="mark">加速：</span><input type="range" min="0.1" max="3" id="rate-1" step="0.1" defaultValue="1"></p>					
+				<div class="control-box">
+					<div class="control-list-1">
+						<p class="control"><span class="mark">音量：</span><input type="range" min="0" max="100" id="volumn-1" step="1"></p>
+						<p class="control"><span class="mark">低频：</span><input type="range" min="0" max="10000" id="frequency-1" step="1"></p>
+						<p class="control"><span class="mark">加速：</span><input type="range" min="0.1" max="3" id="rate-1" step="0.1" defaultValue="1"></p>
+					</div>
+					<div class="control-list-2">
+						<p class="control"><span class="mark">音量：</span><input type="range" min="0" max="100" id="volumn-2" step="1"></p>
+						<p class="control"><span class="mark">低频：</span><input type="range" min="0" max="10000" id="frequency-2" step="1"></p>
+						<p class="control"><span class="mark">加速：</span><input type="range" min="0.1" max="3" id="rate-2" step="0.1" defaultValue="1"></p>
+					</div>
 				</div>
-				<div class="control-list-2">
-					<p class="control"><span class="mark">音量：</span><input type="range" min="0" max="100" id="volumn-2" step="1"></p>
-					<p class="control"><span class="mark">低频：</span><input type="range" min="0" max="10000" id="frequency-2" step="1"></p>
-					<p class="control"><span class="mark">加速：</span><input type="range" min="0.1" max="3" id="rate-2" step="0.1" defaultValue="1"></p>										
+				<div id="song-wrap-2" style="position: relative;">
+					<div class="song-disk disk-2">
+						<div class="song-cover cover-2"><img src="https://y.gtimg.cn/music/photo_new/T002R300x300M000004XEwud03XB6I.jpg"></div>
+					</div>
+					<div class="song-needle needle-2"></div>
 				</div>
-			</div>
-			<div id="song-wrap-2" style="position: relative;">
-				<div class="song-disk disk-2">
-					<div class="song-cover cover-2"><img src="https://y.gtimg.cn/music/photo_new/T002R300x300M000004XEwud03XB6I.jpg"></div>
-				</div>
-				<div class="song-needle needle-2"></div>
-			</div>
-			<div class="song-list" id="JsongList">
-				<!-- <ul>
+			</section>
+			<section class="section">
+				<div class="song-list" id="JsongList">
+					<!-- <ul>
 					<li data-song="Good Goodbye" draggable="true">Good Goodbye</li>
 					<li data-song="Heavy" draggable="true">Heavy</li>
 					<li data-song="Numb" draggable="true">Numb</li>
 					<li data-song="In The End" draggable="true">In The End</li>
 				</ul> -->
-			</div>
+				</div>
+				<div class="select-voice">
+					<p class="control"><span class="mark">音量：</span><input type="range" min="0" max="100" id="volumn-2" step="1"></p>
+				</div>
+			</section>
 		</div>
 	</div>
 	<script src="../js/index.bundle.js" type="text/javascript"></script>
