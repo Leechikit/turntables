@@ -235,7 +235,8 @@ div[id|="song-wrap"] {
             border-radius: 2px;
             width: 80%;
             height: 3px;
-            box-shadow: inset #333 0 0 3px;
+            background-color:#444;
+            box-shadow: inset #222 0 -1px 1px;
             outline: none;
             transition: .1s;
             cursor: pointer;
@@ -243,20 +244,18 @@ div[id|="song-wrap"] {
             &::-webkit-slider-thumb {
                 -webkit-appearance: none;
                 position: relative;
-                width: 10px;
+                width: 8px;
                 height: 15px;
                 border-radius: 2px;
                 background-image: linear-gradient(to left, 
-                #aaa 4px,#333 4px,#333 5px,#aaa 5px,
-                #aaa 7px,#333 7px, #333 8px,#aaa 8px,
-                #aaa 10px,#333 10px,#333 11px,#aaa 11px);
+                #aaa 2px,#333 2px,#333 3px,#aaa 3px,
+                #aaa 5px,#333 5px, #333 6px,#aaa 6px);
                 transition: .2s;
                 &:hover,
                 &:active {
                     background-image: linear-gradient(to left, 
-                    #888 4px,#333 4px,#333 5px,#888 5px,
-                    #888 7px,#333 7px, #333 8px,#888 8px,
-                    #888 10px,#333 10px,#333 11px,#888 11px);
+                    #888 2px,#333 2px,#333 3px,#888 3px,
+                    #888 5px,#333 5px, #333 6px,#888 6px);
                 }
             }
         }
