@@ -99,6 +99,9 @@ body.s-loading{
         display: flex;
         flex-wrap: wrap;
         justify-content: space-around;
+        &:not(:first-child){
+            border-top: 1rem solid #333;
+        }
     }
 }
 
@@ -319,7 +322,7 @@ div[id|="song-wrap"] {
                 -webkit-appearance: none;
                 position: relative;
                 width: 8px;
-                height: 21px;
+                height: 30px;
                 border-radius: 2px;
                 background-image: linear-gradient(to left, 
                 #aaa 2px,#333 2px,#333 3px,#aaa 3px,
