@@ -302,10 +302,12 @@ div[id|="song-wrap"] {
     }
 }
 .select-voice{
+    display: flex;
+    align-items: center;
     input[type="range"] {
             -webkit-appearance: none;
             border-radius: 2px;
-            width: 80%;
+            width: 20rem;
             height: 5px;
             background-color:#444;
             box-shadow: inset #222 0 -1px 1px;
