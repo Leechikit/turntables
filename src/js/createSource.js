@@ -6,6 +6,7 @@
  */
 
 import audioContext from './audioContext.js';
+import destination from './createDestination.js';
 import bufferList from './bufferList.js';
 
 let buffers = bufferList;
@@ -30,7 +31,7 @@ Source.prototype.start = function(second = 0) {
 		this.bufferSource.loop = this.config.loop;
 		this.bufferSource.connect(this.gainNode);
 		this.gainNode.connect(this.filter);
-		this.filter.connect(audioContext.destination);
+		this.filter.connect(destination);
 		this.bufferSource.onended = () => {
 			this.bufferSource = null;
 		}
