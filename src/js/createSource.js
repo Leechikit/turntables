@@ -13,6 +13,7 @@ let buffers = bufferList;
 
 function Source(obj) {
 	this.config = obj;
+	this.volume = 1;
 }
 
 /**
@@ -20,10 +21,11 @@ function Source(obj) {
  *
  * @param: {Number} second 播放位置
  */
-Source.prototype.start = function(second = 0) {
+Source.prototype.start = function (second = 0) {
 	if (!this.bufferSource) {
 		this.bufferSource = audioContext.createBufferSource();
 		this.gainNode = audioContext.createGain();
+		this.gainNode.gain.value = this.volume;
 		this.filter = audioContext.createBiquadFilter();
 		this.filter.type = 'lowpass';
 		this.filter.frequency.value = 5000;
@@ -45,7 +47,7 @@ Source.prototype.start = function(second = 0) {
  * 停止播放
  *
  */
-Source.prototype.stop = function() {
+Source.prototype.stop = function () {
 	this.bufferSource && this.bufferSource.stop();
 }
 
@@ -54,9 +56,11 @@ Source.prototype.stop = function() {
  *
  * @param: {Number} value 音量
  */
-Source.prototype.controlVolume = function(value) {
-	console.log(value);
-	this.bufferSource && (this.gainNode.gain.value = value);
+Source.prototype.controlVolume = function (value) {
+	if (value != void 0) {
+		this.volume = value;
+		this.bufferSource && (this.gainNode.gain.value = this.volume);
+	}
 }
 
 /**
@@ -64,7 +68,7 @@ Source.prototype.controlVolume = function(value) {
  *
  * @param: {Number} rate 原速度的倍数
  */
-Source.prototype.controlRate = function(rate) {
+Source.prototype.controlRate = function (rate) {
 	this.bufferSource && (this.bufferSource.playbackRate.value = rate);
 }
 
@@ -73,7 +77,7 @@ Source.prototype.controlRate = function(rate) {
  *
  * @param: {Number} value 频率
  */
-Source.prototype.controlFrequency = function(value) {
+Source.prototype.controlFrequency = function (value) {
 	this.bufferSource && (this.filter.frequency.value = value);
 }
 

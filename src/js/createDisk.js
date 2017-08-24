@@ -27,7 +27,6 @@ function Disk(obj) {
 	this.isRotating = false;
 	this.mouseDownDegree = 0;
 	this.mouseDownRotate = 0;
-	this.volumn = 1;
 	this.frequency = 5000;
 	this.rate = 1;
 	this.loop = obj.loop;
@@ -77,10 +76,10 @@ Disk.prototype.init = function () {
 	// controlListEl.className = 'control-list';
 	// containerEl.append(controlListEl);
 	// // 创建音量控制条
-	// let volumnEl = document.createElement('p');
-	// volumnEl.className = 'control';
-	// volumnEl.innerHTML = `<input type="range" min="${VOLUMNMIN}" max="${VOLUMNMAX}" id="volumn-${this.index}"><span class="mark">音<br/>量</span>`;
-	// controlListEl.append(volumnEl);
+	// let volumeEl = document.createElement('p');
+	// volumeEl.className = 'control';
+	// volumeEl.innerHTML = `<input type="range" min="${VOLUMNMIN}" max="${VOLUMNMAX}" id="volume-${this.index}"><span class="mark">音<br/>量</span>`;
+	// controlListEl.append(volumeEl);
 	// // 创建音频控制条
 	// let frequencyEl = document.createElement('p');
 	// frequencyEl.className = 'control';
@@ -93,7 +92,7 @@ Disk.prototype.init = function () {
  *
  */
 Disk.prototype.bindEvent = function () {
-	this.controlVolumnHandle();
+	this.controlVolumeHandle();
 	this.controlFrequencyHandle();
 	this.controlRateHandle();
 	this.mousemoveDiskHandle();
@@ -132,7 +131,7 @@ Disk.prototype.stopSound = function () {
 	needleEl.setAttribute('data-status', '');
 	this.sound.stop();
 	this.resetProgress();
-	this.resetVolumn();
+	this.resetVolume();
 	this.resetFrequency();
 	this.resetRate();
 	this.isStart = false;
@@ -186,10 +185,10 @@ Disk.prototype.rotateTo = function (degree) {
  * 控制音量事件
  *
  */
-Disk.prototype.controlVolumnHandle = function () {
-	document.querySelector('#volumn-' + this.index).addEventListener('change', (event) => {
-		this.volumn = event.target.value;
-		this.sound.controlVolume(this.volumn);
+Disk.prototype.controlVolumeHandle = function () {
+	document.querySelector('#volume-' + this.index).addEventListener('change', (event) => {
+		let volume = event.target.value;
+		this.sound.controlVolume(volume);
 	});
 }
 
@@ -197,8 +196,8 @@ Disk.prototype.controlVolumnHandle = function () {
  * 重置音量
  *
  */
-Disk.prototype.resetVolumn = function () {
-	document.querySelector('#volumn-' + this.index).value = (VOLUMNMAX - VOLUMNMIN) / 2;
+Disk.prototype.resetVolume = function () {
+	document.querySelector('#volume-' + this.index).value = (VOLUMNMAX - VOLUMNMIN) / 2;
 }
 
 /**
@@ -298,7 +297,7 @@ Disk.prototype.mouseupDiskHandle = function () {
 			let degree = utils.getRotateDegree(this.diskEl);
 			this.isRotating = !this.isRotating;
 			this.sound.start(degree / 360 * this.duration);
-			this.sound.controlVolume(this.volumn);
+			this.sound.controlVolume();
 			this.sound.controlFrequency(this.frequency);
 			this.oscillator.stop();
 			window.requestAnimationFrame(() => {
@@ -319,7 +318,7 @@ Disk.prototype.mouseleaveDiskHandle = function () {
 			let degree = utils.getRotateDegree(this.diskEl);
 			this.isRotating = !this.isRotating;
 			this.sound.start(degree / 360 * this.duration);
-			this.sound.controlVolume(this.volumn);
+			this.sound.controlVolume();
 			this.sound.controlFrequency(this.frequency);
 			this.oscillator.stop();
 			window.requestAnimationFrame(() => {

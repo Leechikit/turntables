@@ -9,6 +9,7 @@ import audioContext from './audioContext.js';
 
 function Oscillator(obj) {
 	this.config = obj;
+	this.volume = 0.1;
 }
 
 /**
@@ -24,7 +25,7 @@ Oscillator.prototype.start = function(second = 0) {
 		this.oscillator.frequency.value = this.config.frequency;
 		this.oscillator.connect(this.gainNode);
 		this.gainNode.connect(audioContext.destination);
-		this.gainNode.gain.value = 0.1;
+		this.gainNode.gain.value = this.volume;
 		this.oscillator.onended = () => {
 			this.oscillator = null;
 		}
@@ -48,6 +49,18 @@ Oscillator.prototype.stop = function() {
  */
 Oscillator.prototype.controlFrequency = function(value) {
 	this.oscillator && (this.oscillator.frequency.value = value);
+}
+
+/**
+ * 控制音量
+ *
+ * @param: {Number} value 音量
+ */
+Oscillator.prototype.controlVolume = function(value) {
+	if (value != void 0) {
+		this.volume = value;
+		this.oscillator && (this.gainNode.gain.value = this.volume);
+	}
 }
 
 export default Oscillator;

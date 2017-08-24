@@ -26,5 +26,7 @@ songList({
 
 createController.init({
 	sourceLeft: diskLeft.sound,
-	sourceRight: diskRight.sound
+	oscillatorLeft: diskLeft.oscillator,
+	sourceRight: diskRight.sound,
+	oscillatorRight: diskRight.oscillator
 })
