@@ -55,6 +55,7 @@ Source.prototype.stop = function() {
  * @param: {Number} value 音量
  */
 Source.prototype.controlVolume = function(value) {
+	console.log(value);
 	this.bufferSource && (this.gainNode.gain.value = value);
 }
 
