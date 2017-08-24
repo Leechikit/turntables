@@ -106,11 +106,10 @@ body.s-loading{
 }
 
 div[id|="song-wrap"] {
-    // flex-grow: 1;
+    position: relative;
     width: 33rem;
     margin-top: 5.6rem;
     margin-bottom: 5.6rem;
-    // margin-right: 8rem;
 }
 
 .song-disk {
@@ -120,7 +119,6 @@ div[id|="song-wrap"] {
     transform-origin: center center;
     will-change: transform;
     cursor: -webkit-grab;
-    // opacity: 0;
     &::before {
         content: " ";
         position: absolute;
