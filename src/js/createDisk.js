@@ -12,7 +12,7 @@ import soundList from './soundList.js';
 // 音量最小
 const VOLUMNMIN = 0;
 // 音量最大
-const VOLUMNMAX = 100;
+const VOLUMNMAX = 2;
 // 频率最小
 const FREQUENCYMIN = 0;
 // 频率最大
@@ -188,7 +188,7 @@ Disk.prototype.rotateTo = function (degree) {
  */
 Disk.prototype.controlVolumnHandle = function () {
 	document.querySelector('#volumn-' + this.index).addEventListener('change', (event) => {
-		this.volumn = event.target.value / 50;
+		this.volumn = event.target.value;
 		this.sound.controlVolume(this.volumn);
 	});
 }
