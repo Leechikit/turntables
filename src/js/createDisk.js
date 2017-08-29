@@ -8,6 +8,7 @@ import audioContext from './audioContext.js';
 import Source from './createSource.js';
 import Oscillator from './createOscillator.js';
 import soundList from './soundList.js';
+import controller from './createController.js';
 
 // 音量最小
 const VOLUMNMIN = 0;
@@ -36,8 +37,8 @@ function Disk(obj) {
 		loop: obj.loop || true
 	});
 	this.oscillator = new Oscillator({
-		type: 'square',
-		frequency: 700
+		type: 'sawtooth',
+		frequency: 300
 	})
 	this.index = ++diskCount;
 	this.init();
@@ -168,6 +169,7 @@ Disk.prototype.resetProgress = function () {
 Disk.prototype.rotate = function (degree) {
 	let nowDegree = utils.getRotateDegree(this.diskEl);
 	degree += +nowDegree;
+	degree = degree > 360 ? degree - 360 : degree;
 	this.rotateTo(degree);
 }
 
@@ -365,6 +367,10 @@ Disk.prototype.dropDiskHandle = function () {
 						loop: this.loop || true
 					});
 					this.setCover(name);
+					controller.reset({
+						source: this.sound,
+						direction: event.target.getAttribute('data-direction')
+					})
 				});
 			}
 		}

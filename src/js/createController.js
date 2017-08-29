@@ -127,8 +127,23 @@ let createController = (() => {
         eventBind();
     }
 
+    /**
+    * 充值音源
+    *
+    * @param: {Object} source 音源
+    * @param: {String} direction 方向
+    */
+    function reset({ source, direction }) {
+        if(direction == 'left'){
+            soundLeft = source;
+        }else if(direction == 'right'){
+            soundRight = source;
+        }
+    }
+
     return {
-        init
+        init,
+        reset
     }
 
 })();

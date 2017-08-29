@@ -25,12 +25,20 @@
 // }
 
 export default {
-	'Good Goodbye': {
+	// 'Good Goodbye': {
+	// 	cover: 'https://y.gtimg.cn/music/photo_new/T002R300x300M000004XEwud03XB6I.jpg',
+	// 	link: 'https://leechikit.github.io/resources/article/turntables/song/GoodGoodBye.m4a'
+	// },
+	// 'Heavy': {
+	// 	cover: 'https://y.gtimg.cn/music/photo_new/T002R300x300M000001TZBRx2mZw8A.jpg',
+	// 	link: 'https://leechikit.github.io/resources/article/turntables/song/Heavy.m4a'
+	// },
+	'SONG1':{
 		cover: 'https://y.gtimg.cn/music/photo_new/T002R300x300M000004XEwud03XB6I.jpg',
-		link: 'https://leechikit.github.io/resources/article/turntables/song/GoodGoodBye.m4a'
+		link: 'https://leechikit.github.io/resources/article/turntables/song/SONG1.m4a'
 	},
-	'Heavy': {
-		cover: 'https://y.gtimg.cn/music/photo_new/T002R300x300M000001TZBRx2mZw8A.jpg',
-		link: 'https://leechikit.github.io/resources/article/turntables/song/Heavy.m4a'
+	'sound1':{
+		cover: 'https://y.gtimg.cn/music/photo_new/T002R300x300M000004ImTxE1OkGqR.jpg',
+		link: 'https://leechikit.github.io/resources/article/turntables/song/sound1.m4a'
 	}
 }

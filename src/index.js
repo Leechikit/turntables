@@ -10,13 +10,13 @@ import createController from './js/createController.js';
 
 let diskLeft = new Disk({
 	selector: '#song-wrap-1',
-	soundName: 'Heavy',
+	soundName: 'SONG1',
 	loop: false
 });
 
 let diskRight = new Disk({
 	selector: '#song-wrap-2',
-	soundName: 'Good Goodbye',
+	soundName: 'sound1',
 	loop: false
 });
 
